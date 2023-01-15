@@ -1,8 +1,13 @@
 import java.io.*;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static java.lang.Thread.sleep;
 
 public class FileManger {
 
@@ -10,11 +15,29 @@ public class FileManger {
     private static final String Width ="1521";
     private static final String Height ="866";
     private static final String GUBUN = "/";
+
+    private static Integer TotCnt=0;
+    private static Integer FailCnt=0;
+    private static Integer SuccCnt=0;
+
     static List<String> sorceList = new ArrayList<String>();
 
-    public static void main(String[] args) throws IOException {
-        getSourceList(srcPath);
+    public static void main(String[] args) throws IOException, InterruptedException {
+        Calendar startTime = Calendar.getInstance();
+        long startime = startTime.getTimeInMillis();
+        System.out.println(startTime.getTimeInMillis());
+        System.out.println("====================파일변환====================");
+        System.out.println(">>>>>>>Start!!.....");
 
+        getSourceList(srcPath);
+        Calendar endTime = Calendar.getInstance();
+
+        long endtime =endTime.getTimeInMillis();
+        long diff = (endtime-startime)/1000;
+        System.out.println(">>>>>>>Transfer Completed....총 "+diff/60  +"분"+ diff%60+"초 소요");
+        System.out.println("# 전체 파일수 : "+TotCnt+"개");
+        System.out.println("# 성공 파일수 : "+SuccCnt+"개");
+        System.out.println("# 실패 파일수 : "+(TotCnt-SuccCnt)+"개");
     }
 
     public static void getSourceList(String path) throws IOException {
@@ -29,17 +52,20 @@ public class FileManger {
             String filename = list[i].getName();
 
             if(list[i].isFile()){
-
+                if(!checkFile(filename,"FILE"))
+                    continue;
                 String regex = "(_man)([0-9][0-9])(.xfdl)";
                 Pattern pattern =  Pattern.compile(regex);
                 Matcher matcher = pattern.matcher(filename);
 
                 if(matcher.find()){
-                    System.out.println("패턴 ===> "+filename);
+                    TotCnt++;
                     patchSorce(path+GUBUN+filename,filename);
 
                 }
             }else if(list[i].isDirectory()){
+                if(!checkFile(filename,"DIR"))
+                    continue;
                 getSourceList(path+GUBUN+filename);
             }
         }
@@ -98,13 +124,9 @@ public class FileManger {
         }catch(Exception e){
             e.printStackTrace();
         }
-//        if(!file.createNewFile()){
-//            System.out.println("["+filename+"] ==> 파일생성 실패");
-//            return;
-//        }
-
 
         FileWriter fileWriter = new FileWriter(file);
+
         try(fileWriter){
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             try(bufferedWriter){
@@ -114,7 +136,8 @@ public class FileManger {
 
                 bufferedWriter.write(strCode);
                 bufferedWriter.close();
-                System.out.println("["+filename+"]  ==> 파일변환완료");
+                SuccCnt++;
+                System.out.println("["+filepath+"]  ==> 파일변환완료");
             }catch (Exception e){
                 bufferedWriter.close();
             }finally {
@@ -124,6 +147,7 @@ public class FileManger {
         }catch (Exception e){
             fileWriter.close();
         }finally {
+
             fileWriter.close();
         }
 
@@ -174,5 +198,21 @@ public class FileManger {
         return sorce;
     }
 
+    public static Boolean checkFile( String filename , String Type){
+        String[] dir ={"dev",};
+        String[] file = {"NoTrans_man01.xfdl",};
+        if("DIR".equals(Type)) {
+            for (String vo : dir) {
+                if (filename.equals(vo))
+                    return false;
+            }
+        }else {
+            for (String vo : file) {
+                if (filename.equals(vo))
+                    return false;
+            }
+        }
+        return true;
+    }
 
 }
