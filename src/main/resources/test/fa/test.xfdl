@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+<Form  id="ioio" width="1280" height="720">
+<Layouts>
+<Layout  width="1280" height="720">
+<Div id ="Div00" left="12" top="4" height="55" width="558"  taborder="0" text="Div00">
+<Layouts>
+<Layout>
+<Div id ="Div00_0" left="296" top="19" height="29" width="168"  taborder="1" text="Div00">
+<Layouts>
+<Layout>
+<Div id ="Div00_0_0" left="37" top="10" height="16" width="113"  taborder="0" text="Div00">
+<Layouts>
+<Layout>
+Div00_0_0detail
+</Layout>
+</Layouts>
+</Div>
+</Layout>
+</Layouts>
+</Div>
+</Layout>
+</Layouts>
+</Div>
+<Div id ="Div01" left="10" top="77" height="133" width="417"  taborder="1" text="Div01">
+<Layouts>
+<Layout>
+<Grid id ="Grid00" left="23" top="18" height="98" width="364"  taborder="0"  cantreestatuschange="Div01_Grid00_cantreestatuschange">
+
+</Grid>
+Div01detail
+</Layout>
+</Layouts>
+</Div>
+
+<Button id ="Button00" left="499" bottom="43" top="91" right="23" maxheight="103" minheight="101" maxwidth="102" minwidth="100"  taborder="2" text="testsdfsdf" positionstep="1"/>
+
+<Grid id ="Grid00" left="40" top="223" height="170" width="354"  taborder="3" binddataset="Dataset00"  cantreestatuschange="Div01_Grid00_cantreestatuschange">
+<Formats><Format id="default"><Columns><Column size="80"/><Column size="80"/><Column size="80"/><Column size="80"/><Column size="80"/><Column size="80"/><Column size="80"/></Columns><Rows><Row size="24" band="head"/><Row size="24"/></Rows><Band id="head"><Cell text="ConstColumn0"/><Cell col="1" text="ConstColumn1"/><Cell col="2" text="Column0"/><Cell col="3" text="Column1"/><Cell col="4" text="Column2"/><Cell col="5" text="Column3"/><Cell col="6" text="Column4"/></Band><Band id="body"><Cell text="bind:ConstColumn0" edittype="combo" displaytype="combotext"/><Cell col="1" text="bind:ConstColumn1"/><Cell col="2" text="bind:Column0"/><Cell col="3" text="bind:Column1"/><Cell col="4" text="bind:Column2"/><Cell col="5" text="bind:Column3"/><Cell col="6" text="bind:Column4"/></Band></Format></Formats>
+</Grid>
+
+<Tab id ="Tab00" left="463" top="114" height="100" width="150"  taborder="4" tabindex="0">
+<Tabpages>
+<Tabpage id ="Tabpage1"  text="Tabpage1"/>
+<Tabpage id ="Tabpage2"  text="Tabpage2"/>
+Tab00detail
+</Tabpages>
+</Tab>
+</Layout>
+</Layouts>
+<Objects>
+<Dataset id = "Dataset00" > 
+<ColumnInfo><ConstColumn id="ConstColumn0" type="STRING" size="30"/><ConstColumn id="ConstColumn1" type="STRING" size="30"/><Column id="Column0" type="STRING" size="256"/><Column id="Column1" type="STRING" size="256"/><Column id="Column2" type="STRING" size="256"/><Column id="Column3" type="STRING" size="256"/><Column id="Column4" type="STRING" size="256"/></ColumnInfo> 
+</Dataset>
+
+</Objects>
+<Script type ="xscript5.1"><![CDATA[
+
+this.Div01_Grid00_cantreestatuschange = function(obj,e)
+{
+
+};
+
+this.Dataset00_oncolumnchanged = function(obj,e)
+{
+
+};
+
+
+
+
+]]></Script>
+</Form>
+</FDL>
